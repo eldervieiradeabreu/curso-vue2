@@ -1,6 +1,7 @@
 # vue2
 
 > A Vue.js project
+> Link do curso: https://www.schoolofnet.com/curso/frontend/vuejs/vuejs-20/
 
 ## Build Setup
 
