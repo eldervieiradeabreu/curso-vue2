@@ -1,7 +1,11 @@
 # vue2
 
 > A Vue.js project
-> Link do curso: https://www.schoolofnet.com/curso/frontend/vuejs/vuejs-20/
+> (https://www.schoolofnet.com/curso/frontend/vuejs/vuejs-20/)
+
+## Resumo
+Tabela de placar do campeonato brasileiro.
+(interpolação, ordenação,filtros, eventos)
 
 ## Build Setup
 

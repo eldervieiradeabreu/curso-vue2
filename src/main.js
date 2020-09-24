@@ -11,8 +11,14 @@ let meuVue = new Vue({
         order: {
             keys: ['pontos', 'gm', 'gs'],
             sort: ['desc', 'desc', 'asc']
-        },
+        },        
         filter: '',
+        mesmoTimeMsg: '',
+        mesmoTimeCasa: '',
+        mesmoTimeFora:'',
+        tipoClasseAlerta:'',
+        sorteioRepetido: false,
+        ckeckCaseSentitive: false,
         colunas: ['nome', 'pontos', 'gm', 'gs', 'saldo'],
         times: [
             new Time('Palmeiras', require('./assets/palmeiras_60x60.png')),
@@ -57,8 +63,24 @@ let meuVue = new Vue({
             this.showView('tabela');
         },
         createNovoJogo(){
+            
             let indexCasa = Math.floor(Math.random() * 20),
                 indexFora = Math.floor(Math.random() * 20);
+            
+            if (indexCasa === indexFora){
+                this.sorteioRepetido = true;
+                this.mesmoTimeMsg = 'OPA!!! Os times estavam iguais. Um novo sorteio foi realizado. Vamos ao placar.'; 
+                this.mesmoTimeCasa = this.times[indexCasa];
+                this.mesmoTimeFora = this.times[indexFora];                                  
+                this.tipoClasseAlerta = 'alert alert-danger';
+                while (indexCasa === indexFora) {
+                    indexFora = Math.floor(Math.random() * 20);
+                }                 
+            }else{
+                this.sorteioRepetido = false;
+                this.mesmoTimeMsg = 'Times Diferentes. Ok! Vamos ao placar.';
+                this.tipoClasseAlerta = 'alert alert-success';
+            }
 
             this.novoJogo.casa.time = this.times[indexCasa];
             this.novoJogo.casa.gols = 0;
@@ -72,15 +94,48 @@ let meuVue = new Vue({
         sortBy(coluna){
             this.order.keys = coluna;
             this.order.sort = this.order.sort == 'desc' ? 'asc': 'desc';
+        },
+        removerAcentos( newStringComAcento ) {
+            var string = newStringComAcento;
+
+            var mapaAcentosHex = {
+                a : /[\xE0-\xE6]/g,
+                A : /[\xC0-\xC6]/g,
+                e : /[\xE8-\xEB]/g,
+                E : /[\xC8-\xCB]/g,
+                i : /[\xEC-\xEF]/g,
+                I : /[\xCC-\xCF]/g,
+                o : /[\xF2-\xF6]/g,
+                O : /[\xD2-\xD6]/g,
+                u : /[\xF9-\xFC]/g,
+                U : /[\xD9-\xDC]/g,
+                c : /\xE7/g,
+                C : /\xC7/g,
+                n : /\xF1/g,
+                N : /\xD1/g,
+            };
+
+            for ( var letra in mapaAcentosHex ) {
+                var expressaoRegular = mapaAcentosHex[letra];
+                string = string.replace( expressaoRegular, letra );
+            }
+
+            return string;
         }
     },
     computed: {
         timesFiltered(){
             let colecao = _.orderBy(this.times, this.order.keys, this.order.sort);
 
-            return _.filter(colecao, item => {
-                return item.nome.indexOf(this.filter) >=0;
-            });
+            if (this.ckeckCaseSentitive){
+                return _.filter(colecao, item => {
+                    return item.nome.indexOf(this.filter) >=0;
+                });
+            }else{
+                return _.filter(colecao, item => {
+                    return this.removerAcentos(item.nome.toLowerCase()).indexOf(this.removerAcentos(this.filter.toLowerCase())) >=0;
+                });
+            }                                 
         }
     },
     filters: {
