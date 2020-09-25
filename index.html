@@ -14,10 +14,32 @@
             <br /><br />
             <div v-if="view == 'tabela'">
 
+                <!-- VueTippy Exemples
+                <button content="Hi!" v-tippy>My Button!</button>
+                <button :content="tooltipckeckCaseSentitive" v-tippy>My Button!</button>
+                <button content="Hello" v-tippy="{ placement : 'top',  arrow: true }">
+                    My Button!
+                </button>
+                <button 
+                    title="Howdy!" 
+                    v-tippy="{ placement : 'bottom',  arrow: true, animation: 'perspective', size: 'big'}"> 
+                    bottom! 
+                </button>
+                <button title="Hello there!" v-tippy="{ placement : 'top',  arrow: true, animation: 'scale', duration: 2000, size: 'big' }"> 
+                    right!
+                </button>
+                <tippy to="myTrigger" arrow>
+                    <div>
+                      <h3>Header</h3>
+                      <p style="color: black">{{ tooltipckeckCaseSentitive }} - data binding</p>                      
+                    </div>
+                </tippy>                  
+                <button name="myTrigger">Tippy Trigger</button> -->
+             
+
                 <div class="input-group">
                     <span class="input-group-addon">
-                        <input type="checkbox" id="checkbox" v-model="ckeckCaseSentitive" >
-                        <span>Case Sensitive</span>
+                        <input type="checkbox" id="checkbox" v-model="ckeckCaseSentitive" :content="tooltipckeckCaseSentitive" v-tippy="{ placement : 'top',  arrow: true }">                        
                     </span>
                     <input type="text" class="form-control" v-model="filter">
                 </div><!-- /input-group -->          

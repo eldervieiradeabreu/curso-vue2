@@ -1,6 +1,10 @@
 import Vue from 'vue'
 import {Time} from './time';
 import _ from 'lodash';
+import VueTippy, { TippyComponent } from "vue-tippy";
+
+Vue.use(VueTippy);
+Vue.component("tippy", TippyComponent);
 
 require('style-loader!css-loader!bootstrap/dist/css/bootstrap.min.css');
 require('bootstrap');
@@ -19,6 +23,7 @@ let meuVue = new Vue({
         tipoClasseAlerta:'',
         sorteioRepetido: false,
         ckeckCaseSentitive: false,
+        tooltipckeckCaseSentitive: 'CASE SENSITIVE',
         colunas: ['nome', 'pontos', 'gm', 'gs', 'saldo'],
         times: [
             new Time('Palmeiras', require('./assets/palmeiras_60x60.png')),
@@ -88,7 +93,7 @@ let meuVue = new Vue({
             this.novoJogo.fora.gols = 0;
             this.showView('novojogo');
         },
-        showView(view){
+        showView(view){        
             this.view = view;
         },
         sortBy(coluna){

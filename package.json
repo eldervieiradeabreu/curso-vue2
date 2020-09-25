@@ -8,10 +8,14 @@
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
+    "@popperjs/core": "^2.5.2",
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",
     "lodash": "^4.16.4",
-    "vue": "^2.0.1"
+    "tippy.js": "^6.2.6",
+    "v-title": "^1.0.10",
+    "vue": "^2.0.1",
+    "vue-tippy": "^4.7.0"
   },
   "devDependencies": {
     "babel-core": "^6.0.0",
